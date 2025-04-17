@@ -155,7 +155,7 @@ namespace UNKO.Unity_Builder
             }
 
             BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(buildConfig.buildTarget);
-            BuildPlayerOptions buildPlayerOptions = Generate_BuildPlayerOption(buildConfig);
+            BuildPlayerOptions buildPlayerOptions = Generate_BuildPlayerOption(buildConfig, buildTargetGroup);
             PlayerSetting_Backup editorSetting_Backup = SettingBuildConfig_To_EditorSetting(buildConfig, buildTargetGroup);
             Debug.Log($"OnPreBuild DefineSymbol {PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup)}");
 
@@ -181,6 +181,7 @@ namespace UNKO.Unity_Builder
 #if UNITY_EDITOR
             AssetDatabase.Refresh();
 #endif
+            EditorApplication.Exit(0);
         }
 
         /// <summary>
@@ -204,7 +205,7 @@ namespace UNKO.Unity_Builder
 
         #region private
 
-        private static BuildPlayerOptions Generate_BuildPlayerOption(BuildConfigBase config)
+        private static BuildPlayerOptions Generate_BuildPlayerOption(BuildConfigBase config, BuildTargetGroup buildTargetGroup)
         {
             const string sceneExtension = ".unity";
             string dataPath = $"{Application.dataPath}/";
@@ -248,6 +249,7 @@ namespace UNKO.Unity_Builder
                 scenes = buildSettingScenes,
                 locationPathName = config.GetBuildPath(),
                 target = config.buildTarget,
+                targetGroup = buildTargetGroup,
                 options = BuildOptions.None
             };
 

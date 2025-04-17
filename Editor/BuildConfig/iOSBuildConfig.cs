@@ -64,24 +64,25 @@ namespace UNKO.Unity_Builder
                     Debug.LogError($"plist Can't open, path:{infoPlistPath}");
                 }
 
-                // https://lhamed.github.io/66th-post-copy-2/
-                var fileName = "unity.entitlements"; // 이거없으면 푸시 안됩니다 
-                var targetGUID = pbxProject.TargetGuidByName(UNITY_IPHONE);
-                var entitlementsFilePath = $"{path}/{UNITY_IPHONE}/{fileName}";
-                try
-                {
-                    File.WriteAllText(entitlementsFilePath, entitlements);
-                    pbxProject.AddFile($"{UNITY_IPHONE}/{fileName}", fileName);
-                    pbxProject.AddBuildProperty(targetGUID, "CODE_SIGN_ENTITLEMENTS", UNITY_IPHONE + "/" + fileName);
-                    pbxProject.WriteToFile(projectPath);
-                }
-                catch (IOException e)
-                {
-                    Debug.Log("Could not copy entitlements. Probably already exists. " + e);
-                }
+                // // https://lhamed.github.io/66th-post-copy-2/
+                // var fileName = "unity.entitlements"; // 이거없으면 푸시 안됩니다 
+                // // var targetGUID = pbxProject.TargetGuidByName(UNITY_IPHONE);
+                // var targetGUID = pbxProject.GetUnityMainTargetGuid();
+                // var entitlementsFilePath = $"{path}/{UNITY_IPHONE}/{fileName}";
+                // try
+                // {
+                //     File.WriteAllText(entitlementsFilePath, entitlements);
+                //     pbxProject.AddFile($"{UNITY_IPHONE}/{fileName}", fileName);
+                //     pbxProject.AddBuildProperty(targetGUID, "CODE_SIGN_ENTITLEMENTS", UNITY_IPHONE + "/" + fileName);
+                //     pbxProject.WriteToFile(projectPath);
+                // }
+                // catch (IOException e)
+                // {
+                //     Debug.Log("Could not copy entitlements. Probably already exists. " + e);
+                // }
 
-                ProjectCapabilityManager pcm = new ProjectCapabilityManager(projectPath, entitlementsFilePath, UNITY_IPHONE);
-                pcm.AddPushNotifications(false);
+                // ProjectCapabilityManager pcm = new ProjectCapabilityManager(projectPath, entitlementsFilePath, UNITY_IPHONE);
+                // pcm.AddPushNotifications(false);
 #endif
             }
 
