@@ -133,6 +133,25 @@ namespace UNKO.Unity_Builder
         }
 
         /// <summary>
+        /// 커맨드라인의 configpath에서 <see cref="BuildConfigBase"/>를 얻은 뒤 해당 config로 빌드합니다.
+        /// CI용으로 수정
+        /// </summary>
+        /// <returns></returns>
+        public static void BuildForCI()
+        {
+            Debug.Log($"Build with commandLine: {GetCommandLine()}");
+
+            if (TryGetSO_FromCommandLine("configpath", out BuildConfigBase config))
+            {
+                BuildForCI(config);
+            }
+            else
+            {
+                Debug.LogError("require -configpath");
+            }
+        }
+
+        /// <summary>
         /// <see cref="BuildConfigBase"/>로 빌드합니다.
         /// </summary>
         /// <param name="buildConfig">빌드에 사용할 config</param>
@@ -181,6 +200,17 @@ namespace UNKO.Unity_Builder
 #if UNITY_EDITOR
             AssetDatabase.Refresh();
 #endif
+        }
+
+        /// <summary>
+        /// <see cref="BuildConfigBase"/>로 빌드합니다.
+        /// CI용으로 수정
+        /// </summary>
+        /// <param name="buildConfig">빌드에 사용할 config</param>
+        public static void BuildForCI(BuildConfigBase buildConfig)
+        {
+			Build(buildConfig);
+
             EditorApplication.Exit(0);
         }
 
