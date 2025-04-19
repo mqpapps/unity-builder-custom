@@ -152,6 +152,14 @@ namespace UNKO.Unity_Builder
         public PLIST_ADD[] addPlist = new PLIST_ADD[] { new PLIST_ADD("ExampleKey", "ExampleValue") };
         public string[] removePlistKey = new string[] { "ExampleKey", "ExampleValue" };
 
+        ///<inheritdoc cref="IBuildConfig.ResetSetting"/>
+        public override void ResetSetting(BuildConfigBase config)
+        {
+            base.ResetSetting(config);
+
+            buildNumber = PlayerSettings.iOS.buildNumber;
+        }
+
         public override void OnPreBuild(IDictionary<string, string> commandLine, ref BuildPlayerOptions buildPlayerOptions)
         {
             base.OnPreBuild(commandLine, ref buildPlayerOptions);
