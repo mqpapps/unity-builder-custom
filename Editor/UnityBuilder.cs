@@ -252,7 +252,7 @@ namespace UNKO.Unity_Builder
                 List<string> sceneNames = new List<string>(config.GetBuildSceneNames());
                 for (int i = 0; i < sceneNames.Count; i++)
                 {
-                    string sceneName = sceneNames[i]
+                    string sceneName = sceneNames[i];
                     // 유니티6.3 마이그레이션 이슈(씬 경로를 절대경로에서 상대경로로 변경)
                     // if (sceneName.StartsWith("Assets/"))
                     // {
